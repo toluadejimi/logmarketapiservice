@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Deposit;
 use Illuminate\Http\Request;
 
 class ApiController extends Controller
@@ -43,6 +44,8 @@ class ApiController extends Controller
         User::where('email', $request->email)->increment('balance', $request->amount) ?? null;
 
         $amount = number_format($request->amount, 2);
+
+        Deposit::where('trx', $request->order_id)->update(['status'=> 1]);
 
         return response()->json([
             'status' => true,
