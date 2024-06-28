@@ -45,14 +45,18 @@ class ApiController extends Controller
 
         $amount = number_format($request->amount, 2);
 
-        Deposit::where('trx', $request->order_id)->update(['status'=> 1]);
+        $get_depo = Deposit::where('trx', $request->order_id)->first() ?? null;
+        if ($get_depo == null){
+            $trx = new Deposit();
+            $trx->trx = $request->order_id;
+            $trx->status = 1;
+            $trx->user_id = $get_user->id;
+            $trx->amount = $request->amount;
+            $trx->save();
+        }else{
+            Deposit::where('trx', $request->order_id)->update(['status'=> 1]);
+        }
 
-        $trx = new Deposit();
-        $trx->trx = $request->order_id;
-        $trx->status = 1;
-        $trx->user_id = $get_user->id;
-        $trx->amount = $request->amount;
-        $trx->save();
 
 
 
