@@ -47,6 +47,15 @@ class ApiController extends Controller
 
         Deposit::where('trx', $request->order_id)->update(['status'=> 1]);
 
+        $trx = new Deposit();
+        $trx->trx = $request->order_id;
+        $trx->status = 1;
+        $trx->user_id = $get_user->id;
+        $trx->amount = $request->amount;
+        $trx->save();
+
+
+
         return response()->json([
             'status' => true,
             'message' => "NGN $amount has been successfully added to your wallet",
