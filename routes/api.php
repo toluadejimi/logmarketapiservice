@@ -18,5 +18,9 @@ use App\Http\Controllers\ApiController;
 
 Route::any('e-fund',  [ApiController::class,'e_fund']);
 Route::any('e-check',  [ApiController::class,'e_check']);
+Route::any('verify',  [ApiController::class,'verify_username']);
+
+
+
 
 
