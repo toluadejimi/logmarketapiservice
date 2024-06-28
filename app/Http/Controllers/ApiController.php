@@ -52,6 +52,7 @@ class ApiController extends Controller
             $trx->status = 1;
             $trx->user_id = $get_user->id;
             $trx->amount = $request->amount;
+            $trx->method_code = 250;
             $trx->save();
         }else{
             Deposit::where('trx', $request->order_id)->update(['status'=> 1]);
