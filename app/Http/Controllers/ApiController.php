@@ -61,7 +61,11 @@ class ApiController extends Controller
         $get_user =  User::where('email', $request->email)->first() ?? null;
 
         if($get_user == null){
-            'username' => "Not Found, Pleas try again"
+
+            return response()->json([
+                'username' => "Not Found, Pleas try again"
+            ]);
+
         }
 
         return response()->json([
